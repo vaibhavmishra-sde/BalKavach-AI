@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+backend/__pycache__/
+backend/.env
+
+# Flutter
+frontend/flutter_app/.dart_tool/
+frontend/flutter_app/.packages
+frontend/flutter_app/build/
+frontend/flutter_app/.idea/
+frontend/flutter_app/.vscode/
+frontend/flutter_app/.flutter-plugins
+frontend/flutter_app/.flutter-plugins-dependencies
+frontend/flutter_app/ios/Flutter/Flutter.framework
+frontend/flutter_app/ios/Flutter/Flutter.podspec
+
+# Firebase
+firebase/serviceAccountKey.json
+
+# OS
+.DS_Store
+Thumbs.db

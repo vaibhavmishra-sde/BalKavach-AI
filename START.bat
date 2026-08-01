@@ -1,0 +1,13 @@
+@echo off
+echo Starting BalKavach Backend...
+cd backend
+if not exist ".venv\Scripts\activate" (
+    echo Creating virtual environment...
+    python -m venv .venv
+)
+call .venv\Scripts\activate
+echo Installing dependencies...
+pip install -r requirements.txt -q
+echo Running Flask server...
+python -m main
+pause
