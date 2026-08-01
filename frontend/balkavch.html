@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BalKavach - AI Child Security System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .text-icon { color: #ff6b6b; }
+        .image-icon { color: #4ecdc4; }
+        .behavior-icon { color: #45b7d1; }
+        .anomaly-icon { color: #f9ca24; }
+
+        .feature-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .input-group textarea,
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group input[type="file"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .input-group textarea:focus,
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result.success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            border: 1px solid #4ade80;
+            color: white;
+        }
+
+        .result.warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: 1px solid #f87171;
+            color: white;
+        }
+
+        .result.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border: 1px solid #ef4444;
+            color: white;
+        }
+
+        .result h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result p {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result strong {
+            font-weight: 600;
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .metric-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .risk-low .metric-fill { background: #4ade80; }
+        .risk-medium .metric-fill { background: #f59e0b; }
+        .risk-high .metric-fill { background: #ef4444; }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-shield-alt"></i> BalKavach</h1>
+            <p>AI-Powered Child Security System</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Text Analysis -->
+            <div class="feature-card">
+                <i class="fas fa-comment-alt text-icon feature-icon"></i>
+                <h2>Text Analysis</h2>
+                <p>Detect toxic messages, bullying, and harmful content using advanced BERT AI</p>
+                <div class="input-group">
+                    <label for="textInput"><i class="fas fa-keyboard"></i> Enter message to analyze:</label>
+                    <textarea id="textInput" placeholder="Type a message here... e.g., 'You are worthless'"></textarea>
+                </div>
+                <button class="btn" onclick="analyzeText()">
+                    <i class="fas fa-search"></i>
+                    Analyze Text
+                </button>
+                <div id="textResult" class="result"></div>
+            </div>
+
+            <!-- Image Analysis -->
+            <div class="feature-card">
+                <i class="fas fa-image image-icon feature-icon"></i>
+                <h2>Image Analysis</h2>
+                <p>Scan images for harmful content, violence, or inappropriate material using CNN</p>
+                <div class="input-group">
+                    <label for="imageInput"><i class="fas fa-upload"></i> Upload image:</label>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+                <button class="btn" onclick="analyzeImage()">
+                    <i class="fas fa-eye"></i>
+                    Analyze Image
+                </button>
+                <div id="imageResult" class="result"></div>
+            </div>
+
+            <!-- Behavior Analysis -->
+            <div class="feature-card">
+                <i class="fas fa-brain behavior-icon feature-icon"></i>
+                <h2>Behavior Analysis</h2>
+                <p>Detect suspicious chatting patterns and behavioral anomalies</p>
+                <div class="input-group">
+                    <label for="behaviorInput"><i class="fas fa-comments"></i> Enter message sequence:</label>
+                    <textarea id="behaviorInput" placeholder="Enter messages separated by new lines..."></textarea>
+                </div>
+                <button class="btn" onclick="analyzeBehavior()">
+                    <i class="fas fa-chart-line"></i>
+                    Analyze Behavior
+                </button>
+                <div id="behaviorResult" class="result"></div>
+            </div>
+
+            <!-- Anomaly Detection -->
+            <div class="feature-card">
+                <i class="fas fa-exclamation-triangle anomaly-icon feature-icon"></i>
+                <h2>Anomaly Detection</h2>
+                <p>Monitor unusual activity patterns</p>
+                <div class="input-group">
+                    <label><i class="fas fa-clock"></i> Messages per hour:</label>
+                    <input type="number" id="messagesPerHour" value="10" min="0">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-hourglass-half"></i> Time online (hours):</label>
+                    <input type="number" id="timeOnline" value="2" min="0" step="0.5">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-users"></i> Unique contacts:</label>
+                    <input type="number" id="uniqueContacts" value="5" min="0">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-moon"></i> Late night activity:</label>
+                    <input type="number" id="lateNightActivity" value="0" min="0">
+                </div>
+                <button class="btn" onclick="detectAnomaly()">
+                    <i class="fas fa-search-plus"></i>
+                    Detect Anomaly
+                </button>
+                <div id="anomalyResult" class="result"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built with <i class="fas fa-heart"></i> using FastAPI, TensorFlow & Flask</p>
+            <p><a href="http://127.0.0.1:8000/docs" target="_blank">API Documentation</a> | Backend: http://127.0.0.1:8000</p>
+        </div>
+    </div>
+
+    <script>
+        function showLoading(button) {
+            button.innerHTML = '<div class="spinner"></div> Analyzing...';
+            button.classList.add('loading');
+            button.disabled = true;
+        }
+
+        function hideLoading(button, originalText) {
+            button.innerHTML = originalText;
+            button.classList.remove('loading');
+            button.disabled = false;
+        }
+
+        function getRiskClass(score) {
+            if (score <= 30) return 'success risk-low';
+            if (score <= 60) return 'warning risk-medium';
+            return 'danger risk-high';
+        }
+
+        async function analyzeText() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) {
+                alert('Please enter some text to analyze');
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            showLoading(button);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/analyze_text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert('Analysis Error: ' + data.error);
+                    return;
+                }
+                
+                const resultDiv = document.getElementById('textResult');
+                const riskScore = parseFloat(data.risk_score) || 0;
+                resultDiv.className = `result ${getRiskClass(riskScore)}`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-comment-alt"></i> Text Analysis Result</h3>
+                    <p><strong>Toxicity:</strong> ${data.toxicity}</p>
+                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
+                    <p><strong>Risk Score:</strong> ${riskScore.toFixed(1)}/100</p>
+                    <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
+                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
+                `;
+            } catch (error) {
+                alert('Error analyzing text: ' + error.message);
+                console.error('Error:', error);
+            } finally {
+                hideLoading(button, originalText);
+            }
+        }
+
+        async function analyzeImage() {
+            const fileInput = document.getElementById('imageInput');
+            if (!fileInput.files[0]) {
+                alert('Please select an image to analyze');
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            showLoading(button);
+
+            try {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+
+                const response = await fetch('http://127.0.0.1:8000/analyze_image', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const resultDiv = document.getElementById('imageResult');
+                const riskScore = parseFloat(data.risk_score) || 0;
+                resultDiv.className = `result ${getRiskClass(riskScore)}`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-image"></i> Image Analysis Result</h3>
+                    <p><strong>Filename:</strong> ${data.filename}</p>
+                    <p><strong>Classification:</strong> ${data.classification}</p>
+                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
+                    <p><strong>Risk Score:</strong> ${riskScore}/100</p>
+                    <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
+                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
+                `;
+            } catch (error) {
+                alert('Error analyzing image: ' + error.message);
+                console.error('Error:', error);
+            } finally {
+                hideLoading(button, originalText);
+            }
+        }
+
+        async function analyzeBehavior() {
+            const text = document.getElementById('behaviorInput').value.trim();
+            if (!text) {
+                alert('Please enter message sequence to analyze');
+                return;
+            }
+
+            const messages = text.split('\n').filter(msg => msg.trim());
+            if (messages.length === 0) {
+                alert('Please enter at least one message');
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            showLoading(button);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/analyze_behavior', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const resultDiv = document.getElementById('behaviorResult');
+                const behaviorRisk = parseFloat(data.behavior_risk) || 0;
+                resultDiv.className = `result ${getRiskClass(behaviorRisk)}`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-brain"></i> Behavior Analysis Result</h3>
+                    <p><strong>Messages Analyzed:</strong> ${data.messages_analyzed}</p>
+                    <p><strong>Behavior Risk:</strong> ${behaviorRisk.toFixed(1)}/100</p>
+                    <div class="metric-bar"><div class="metric-fill" style="width: ${behaviorRisk}%"></div></div>
+                    <p><strong>Pattern Detected:</strong> ${data.pattern_detected ? 'Yes' : 'No'}</p>
+                    <p><strong>Recommendations:</strong> ${data.recommendations}</p>
+                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
+                `;
+            } catch (error) {
+                alert('Error analyzing behavior: ' + error.message);
+                console.error('Error:', error);
+            } finally {
+                hideLoading(button, originalText);
+            }
+        }
+
+        async function detectAnomaly() {
+            const activityData = {
+                messages_per_hour: parseFloat(document.getElementById('messagesPerHour').value),
+                time_online_hours: parseFloat(document.getElementById('timeOnline').value),
+                unique_contacts: parseInt(document.getElementById('uniqueContacts').value),
+                late_night_activity: parseFloat(document.getElementById('lateNightActivity').value)
+            };
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            showLoading(button);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/detect_anomaly', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(activityData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const resultDiv = document.getElementById('anomalyResult');
+                const anomalyScore = (parseFloat(data.anomaly_score) || 0) * 100;
+                resultDiv.className = `result ${getRiskClass(anomalyScore)}`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-exclamation-triangle"></i> Anomaly Detection Result</h3>
+                    <p><strong>Anomaly Score:</strong> ${anomalyScore.toFixed(1)}/100</p>
+                    <div class="metric-bar"><div class="metric-fill" style="width: ${anomalyScore}%"></div></div>
+                    <p><strong>Is Anomaly:</strong> ${data.is_anomaly ? 'Yes' : 'No'}</p>
+                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
+                    <p><strong>Description:</strong> ${data.description}</p>
+                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
+                `;
+            } catch (error) {
+                alert('Error detecting anomaly: ' + error.message);
+                console.error('Error:', error);
+            } finally {
+                hideLoading(button, originalText);
+            }
+        }
+    </script>
+</body>
+</html>
