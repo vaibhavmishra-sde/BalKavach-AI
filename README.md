@@ -12,7 +12,7 @@ BalKavach helps parents protect their children from harmful digital behavior usi
 
 ## Setup Instructions
 
-### 1. Backend Setup
+** 1. Backend Setup
 
 1. Create a Python virtual environment and activate it.
 2. Install dependencies:
@@ -43,7 +43,7 @@ Or run the provided PowerShell helper:
 .\run_backend.ps1
 ```
 
-### 2. Flutter Frontend Setup
+** 2. Flutter Frontend Setup
 
 1. Install Flutter SDK and ensure `flutter doctor` passes.
 2. From the Flutter project folder:
@@ -60,7 +60,7 @@ Or run the provided PowerShell helper:
    flutter run
    ```
 
-### 3. AI Model Setup
+** 3. AI Model Setup
 
 - The backend uses Hugging Face BERT for toxicity detection and a TensorFlow CNN for image safety checks.
 - The image model loader falls back to a default architecture if weights are not available.
