@@ -2,7 +2,7 @@
 
 BalKavach helps parents protect their children from harmful digital behavior using AI-powered toxicity detection, image analysis, location monitoring, and alert management.
 
-## Project Structure
+ # Project Structure
 
 - `backend/` – Flask backend API, Firebase integration, AI inference services
 - `frontend/flutter_app/` – Flutter application with authentication, dashboard, alerts, analytics, and settings
@@ -13,7 +13,6 @@ BalKavach helps parents protect their children from harmful digital behavior usi
 ## Setup Instructions
 
 ** 1. Backend Setup
-
 1. Create a Python virtual environment and activate it.
 2. Install dependencies:
    ```powershell
