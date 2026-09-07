@@ -8,19 +8,26 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      onTap: onTap,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.warning), label: 'Alerts'),
-        BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'AI'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      ],
-      selectedItemColor: Colors.cyanAccent,
-      unselectedItemColor: Colors.white70,
-      backgroundColor: Colors.black,
-      type: BottomNavigationBarType.fixed,
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF14172B),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 20, offset: const Offset(0, -4))],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: onTap,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        selectedItemColor: const Color(0xFF7F5BFF),
+        unselectedItemColor: Colors.white70,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.warning_amber_outlined), label: 'Alerts'),
+          BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'AI'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
     );
   }
 }

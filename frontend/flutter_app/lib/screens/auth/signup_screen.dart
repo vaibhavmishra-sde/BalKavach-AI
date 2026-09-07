@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../dashboard_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -11,6 +10,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _displayNameController = TextEditingController();
@@ -18,6 +18,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String? _error;
 
   Future<void> _submit() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
     setState(() {
       _error = null;
       _loading = true;
@@ -29,18 +30,13 @@ class _SignupScreenState extends State<SignupScreen> {
         _displayNameController.text.trim(),
         'parent',
       );
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const DashboardScreen()),
-        );
-      }
+      if (mounted) Navigator.of(context).pop();
     } catch (error) {
-      setState(() {
-        _error = error.toString();
+      if (mounted) setState(() {
+        _error = error.toString().replaceFirst('Exception: ', '');
       });
     } finally {
-      setState(() {
+      if (mounted) setState(() {
         _loading = false;
       });
     }
@@ -53,31 +49,57 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: ListView(
+          child: Form(
+            key: _formKey,
+            child: ListView(
             children: [
-              TextField(
+              TextFormField(
                 controller: _displayNameController,
                 decoration: const InputDecoration(labelText: 'Display Name'),
+                validator: (value) => value == null || value.trim().isEmpty ? 'Enter your name' : null,
               ),
               const SizedBox(height: 12),
-              TextField(
+              TextFormField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
                 decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) return 'Enter your email address';
+                  if (!value.contains('@')) return 'Enter a valid email address';
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
-              TextField(
+              TextFormField(
                 controller: _passwordController,
+                autofillHints: const [AutofillHints.newPassword],
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
+                validator: (value) {
+                  if (value == null || value.length < 8) return 'Use at least 8 characters';
+                  return null;
+                },
               ),
               const SizedBox(height: 24),
               if (_error != null)
                 Text(_error!, style: const TextStyle(color: Colors.red)),
-              ElevatedButton(
-                onPressed: _loading ? null : _submit,
-                child: _loading ? const CircularProgressIndicator() : const Text('Create Account'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _loading ? null : _submit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6C63FF),
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size.fromHeight(48),
+                  ),
+                  child: _loading
+                      ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                      : const Text('Create Account'),
+                ),
               ),
             ],
+            ),
           ),
         ),
       ),

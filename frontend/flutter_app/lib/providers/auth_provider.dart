@@ -14,6 +14,7 @@ class AuthProvider extends ChangeNotifier {
     final result = await _api.login(email, password);
     user = UserModel.fromJson(result['user']);
     token = result['token'];
+    _api.setToken(token);
     _isAuthenticated = true;
     notifyListeners();
   }
@@ -22,6 +23,7 @@ class AuthProvider extends ChangeNotifier {
     final result = await _api.signup(email, password, displayName, role);
     user = UserModel.fromJson(result['user']);
     token = result['token'];
+    _api.setToken(token);
     _isAuthenticated = true;
     notifyListeners();
   }
@@ -29,6 +31,7 @@ class AuthProvider extends ChangeNotifier {
   void logout() {
     user = null;
     token = null;
+    _api.setToken(null);
     _isAuthenticated = false;
     notifyListeners();
   }
