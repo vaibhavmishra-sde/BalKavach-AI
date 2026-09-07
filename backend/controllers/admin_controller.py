@@ -1,12 +1,14 @@
 from flask import Blueprint, jsonify
 from backend.services.firestore_service import get_alerts
 from backend.utils.logger import configure_logger
+from backend.utils.auth import require_auth
 
 logger = configure_logger()
 admin_bp = Blueprint('admin', __name__, url_prefix='/api/admin')
 
 
 @admin_bp.route('/reports', methods=['GET'])
+@require_auth('admin')
 def reports():
     try:
         alerts = get_alerts()
