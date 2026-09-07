@@ -395,7 +395,7 @@
             showLoading(button);
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/analyze_text', {
+                const response = await fetch('http://127.0.0.1:5000/api/ai/toxicity', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text })
@@ -413,16 +413,15 @@
                 }
                 
                 const resultDiv = document.getElementById('textResult');
-                const riskScore = parseFloat(data.risk_score) || 0;
+                const riskScore = parseFloat(data.toxicity_percentage) || 0;
                 resultDiv.className = `result ${getRiskClass(riskScore)}`;
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
                     <h3><i class="fas fa-comment-alt"></i> Text Analysis Result</h3>
-                    <p><strong>Toxicity:</strong> ${data.toxicity}</p>
-                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
+                    <p><strong>Classification:</strong> ${data.classification}</p>
                     <p><strong>Risk Score:</strong> ${riskScore.toFixed(1)}/100</p>
                     <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
+                    <p><strong>Message:</strong> ${data.alert_message}</p>
                 `;
             } catch (error) {
                 alert('Error analyzing text: ' + error.message);
@@ -445,9 +444,9 @@
 
             try {
                 const formData = new FormData();
-                formData.append('file', fileInput.files[0]);
+                formData.append('image', fileInput.files[0]);
 
-                const response = await fetch('http://127.0.0.1:8000/analyze_image', {
+                const response = await fetch('http://127.0.0.1:5000/api/ai/image', {
                     method: 'POST',
                     body: formData
                 });
@@ -458,17 +457,14 @@
 
                 const data = await response.json();
                 const resultDiv = document.getElementById('imageResult');
-                const riskScore = parseFloat(data.risk_score) || 0;
+                const riskScore = parseFloat(data.unsafe_probability) || 0;
                 resultDiv.className = `result ${getRiskClass(riskScore)}`;
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
                     <h3><i class="fas fa-image"></i> Image Analysis Result</h3>
-                    <p><strong>Filename:</strong> ${data.filename}</p>
-                    <p><strong>Classification:</strong> ${data.classification}</p>
-                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
+                    <p><strong>Classification:</strong> ${data.label}</p>
                     <p><strong>Risk Score:</strong> ${riskScore}/100</p>
                     <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
                 `;
             } catch (error) {
                 alert('Error analyzing image: ' + error.message);
@@ -496,7 +492,7 @@
             showLoading(button);
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/analyze_behavior', {
+                const response = await fetch('http://127.0.0.1:5000/api/ai/behavior', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ messages })
@@ -541,7 +537,7 @@
             showLoading(button);
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/detect_anomaly', {
+                const response = await fetch('http://127.0.0.1:5000/api/ai/anomaly', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(activityData)
