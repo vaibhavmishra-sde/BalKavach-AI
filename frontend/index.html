@@ -13,264 +13,212 @@
             box-sizing: border-box;
         }
 
-        
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #333;
+            background: radial-gradient(circle at top left, rgba(96,165,250,0.22), transparent 25%),
+                        radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
+                        linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
         }
-
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 28px 20px 48px;
         }
-
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            color: white;
+            margin-bottom: 28px;
         }
-
         .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: clamp(2.2rem, 4vw, 3.6rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-
         .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
+            color: #cbd5e1;
+            font-size: 1rem;
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.75;
         }
-
-        .features-grid {
+        .status-panel {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr auto;
+            gap: 18px;
+            margin: 32px 0 26px;
         }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        .status-card {
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .text-icon { color: #ff6b6b; }
-        .image-icon { color: #4ecdc4; }
-        .behavior-icon { color: #45b7d1; }
-        .anomaly-icon { color: #f9ca24; }
-
-        .feature-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .feature-card p {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-
-        .input-group textarea,
-        .input-group input[type="text"],
-        .input-group input[type="number"],
-        .input-group input[type="file"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e1e8ed;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .input-group textarea:focus,
-        .input-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .input-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
+            padding: 20px 22px;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(148,163,184,0.16);
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+        .status-card strong {
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .status-card span {
+            font-weight: 600;
+            color: #93c5fd;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(148,163,184,0.14);
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.17);
+        }
+        .card h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.45rem;
+            margin-bottom: 12px;
+            color: #f8fafc;
+        }
+        .card p {
+            color: #cbd5e1;
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+        .input-group {
+            margin-bottom: 18px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        .input-group textarea,
+        .input-group input[type="file"] {
+            width: 100%;
+            min-height: 140px;
+            padding: 18px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,0.16);
+            background: rgba(255,255,255,0.05);
+            color: #e2e8f0;
+            resize: vertical;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .input-group input[type="file"] {
+            min-height: auto;
+            padding: 14px 14px;
+        }
+        .input-group textarea:focus,
+        .input-group input[type="file"]:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 4px rgba(96,165,250,0.16);
+        }
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+            color: #f8fafc;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
             justify-content: center;
+            align-items: center;
             gap: 10px;
         }
-
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 18px 40px rgba(96,165,250,0.24);
         }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
         .btn.loading {
-            opacity: 0.7;
-            cursor: not-allowed;
+            opacity: 0.85;
+            cursor: progress;
         }
-
         .result {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
             display: none;
-            animation: fadeIn 0.2s ease;
+            margin-top: 24px;
+            padding: 22px;
+            border-radius: 20px;
+            border: 1px solid rgba(148,163,184,0.14);
+            animation: fadeIn 0.25s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result.success {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
-            border: 1px solid #4ade80;
-            color: white;
-        }
-
-        .result.warning {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border: 1px solid #f87171;
-            color: skyblue;
-        }
-
-        .result.danger {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            border: 1px solid #ef4444;
-            color: white;
+        .result.show {
+            display: block;
         }
 
         .result h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+            color: #f8fafc;
         }
-
         .result p {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            color: #e2e8f0;
+            line-height: 1.75;
+            margin-bottom: 12px;
         }
-
-        .result strong {
+        .label-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .label-chip {
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
+            padding: 12px 16px;
+            color: #f8fafc;
             font-weight: 600;
+            display: inline-flex;
+            justify-content: space-between;
         }
-
-        .metric-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 6px;
-        }
-
-        .metric-fill {
-            height: 100%;
-            border-radius: 5px;
-            transition: width 0.5s ease;
-        }
-
-        .risk-low .metric-fill { background: #4ade80; }
-        .risk-medium .metric-fill { background: #f59e0b; }
-        .risk-high .metric-fill { background: #ef4444; }
-
+        .result.success { background: rgba(16, 185, 129, 0.16); border-color: rgba(16,185,129,0.28); }
+        .result.warning { background: rgba(234, 179, 8, 0.16); border-color: rgba(234,179,8,0.28); }
+        .result.danger { background: rgba(239, 68, 68, 0.16); border-color: rgba(239,68,68,0.28); }
         .footer {
+            margin-top: 34px;
             text-align: center;
-            margin-top: 40px;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .feature-card {
-                padding: 20px;
-            }
+        .footer code {
+            background: rgba(148,163,184,0.12);
+            padding: 4px 8px;
+            border-radius: 8px;
+            color: #e2e8f0;
         }
 
         .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top: 2px solid white;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(248,250,252,0.35);
+            border-top: 2px solid #f8fafc;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 760px) {
+            .status-panel { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -278,301 +226,188 @@
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-shield-alt"></i> BalKavach</h1>
-            <p>AI-Powered Child Security System</p>
+            <p>Connect the backend and database, then analyze text or images to display live AI results here.</p>
         </div>
 
-        <div class="features-grid">
-            <!-- Text Analysis -->
-            <div class="feature-card">
-                <i class="fas fa-comment-alt text-icon feature-icon"></i>
-                <h2>Text Analysis</h2>
-                <p>Detect toxic messages, bullying, and harmful content using advanced BERT AI</p>
+        <div class="status-panel">
+            <div class="status-card">
+                <strong>Backend status</strong>
+                <span id="backendStatus">Checking...</span>
+            </div>
+            <button class="btn" onclick="checkBackend()">Reconnect Backend</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2><i class="fas fa-comment-alt"></i> Text Toxicity Scan</h2>
+                <p>Paste a message and send it to the backend AI endpoint to detect toxic content.</p>
                 <div class="input-group">
-                    <label for="textInput"><i class="fas fa-keyboard"></i> Enter message to analyze:</label>
-                    <textarea id="textInput" placeholder="Type a message here... e.g., 'You are worthless'"></textarea>
+                    <label for="textInput">Message text</label>
+                    <textarea id="textInput" placeholder="Type a message here..."></textarea>
                 </div>
-                <button class="btn" onclick="analyzeText()">
-                    <i class="fas fa-search"></i>
-                    Analyze Text
-                </button>
+                <button id="textAnalyzeButton" class="btn" onclick="analyzeText()">Analyze Text</button>
                 <div id="textResult" class="result"></div>
             </div>
 
-            <!-- Image Analysis -->
-            <div class="feature-card">
-                <i class="fas fa-image image-icon feature-icon"></i>
-                <h2>Image Analysis</h2>
-                <p>Scan images for harmful content, violence, or inappropriate material using CNN</p>
+            <div class="card">
+                <h2><i class="fas fa-image"></i> Image Safety Scan</h2>
+                <p>Upload an image for the backend to determine if it appears safe or unsafe.</p>
                 <div class="input-group">
-                    <label for="imageInput"><i class="fas fa-upload"></i> Upload image:</label>
+                    <label for="imageInput">Image file</label>
                     <input type="file" id="imageInput" accept="image/*">
                 </div>
-                <button class="btn" onclick="analyzeImage()">
-                    <i class="fas fa-eye"></i>
-                    Analyze Image
-                </button>
+                <button id="imageAnalyzeButton" class="btn" onclick="analyzeImage()">Analyze Image</button>
                 <div id="imageResult" class="result"></div>
-            </div>
-
-            <!-- Behavior Analysis -->
-            <div class="feature-card">
-                <i class="fas fa-brain behavior-icon feature-icon"></i>
-                <h2>Behavior Analysis</h2>
-                <p>Detect suspicious chatting patterns and behavioral anomalies</p>
-                <div class="input-group">
-                    <label for="behaviorInput"><i class="fas fa-comments"></i> Enter message sequence:</label>
-                    <textarea id="behaviorInput" placeholder="Enter messages separated by new lines..."></textarea>
-                </div>
-                <button class="btn" onclick="analyzeBehavior()">
-                    <i class="fas fa-chart-line"></i>
-                    Analyze Behavior
-                </button>
-                <div id="behaviorResult" class="result"></div>
-            </div>
-
-            <!-- Anomaly Detection -->
-            <div class="feature-card">
-                <i class="fas fa-exclamation-triangle anomaly-icon feature-icon"></i>
-                <h2>Anomaly Detection</h2>
-                <p>Monitor unusual activity patterns</p>
-                <div class="input-group">
-                    <label><i class="fas fa-clock"></i> Messages per hour:</label>
-                    <input type="number" id="messagesPerHour" value="10" min="0">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-hourglass-half"></i> Time online (hours):</label>
-                    <input type="number" id="timeOnline" value="2" min="0" step="0.5">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-users"></i> Unique contacts:</label>
-                    <input type="number" id="uniqueContacts" value="5" min="0">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-moon"></i> Late night activity:</label>
-                    <input type="number" id="lateNightActivity" value="0" min="0">
-                </div>
-                <button class="btn" onclick="detectAnomaly()">
-                    <i class="fas fa-search-plus"></i>
-                    Detect Anomaly
-                </button>
-                <div id="anomalyResult" class="result"></div>
             </div>
         </div>
 
         <div class="footer">
-            <p>Built with <i class="fas fa-heart"></i> using FastAPI, TensorFlow & Flask</p>
-            <p><a href="http://127.0.0.1:8000/docs" target="_blank">API Documentation</a> | Backend: http://127.0.0.1:8000</p>
+            <p>Backend base URL: <code>http://127.0.0.1:5000/api</code></p>
+            <p>Results are logged in the backend database automatically after each analysis call.</p>
         </div>
     </div>
 
     <script>
-        function showLoading(button) {
-            button.innerHTML = '<div class="spinner"></div> Analyzing...';
-            button.classList.add('loading');
-            button.disabled = true;
+        const BACKEND_BASE = 'http://127.0.0.1:5000/api';
+        const HEALTH_URL = 'http://127.0.0.1:5000/';
+
+        function setStatus(text, success = true) {
+            const status = document.getElementById('backendStatus');
+            status.textContent = text;
+            status.style.color = success ? '#a5f3fc' : '#fecaca';
         }
 
-        function hideLoading(button, originalText) {
-            button.innerHTML = originalText;
-            button.classList.remove('loading');
-            button.disabled = false;
+        function showResult(id, html, type) {
+            const box = document.getElementById(id);
+            box.innerHTML = html;
+            box.className = `result show ${type}`;
         }
 
-        function getRiskClass(score) {
-            if (score <= 30) return 'success risk-low';
-            if (score <= 60) return 'warning risk-medium';
-            return 'danger risk-high';
+        function hideResult(id) {
+            const box = document.getElementById(id);
+            box.className = 'result';
+            box.style.display = 'none';
+        }
+
+        function setLoading(button, loading) {
+            if (loading) {
+                button.classList.add('loading');
+                button.innerHTML = '<div class="spinner"></div> Analyzing...';
+                button.disabled = true;
+            } else {
+                button.classList.remove('loading');
+                button.disabled = false;
+                if (button.id === 'textAnalyzeButton') {
+                    button.innerHTML = 'Analyze Text';
+                } else if (button.id === 'imageAnalyzeButton') {
+                    button.innerHTML = 'Analyze Image';
+                } else {
+                    button.innerHTML = 'Submit';
+                }
+            }
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function getSeverity(score) {
+            if (score >= 65) return 'danger';
+            if (score >= 35) return 'warning';
+            return 'success';
+        }
+
+        async function checkBackend() {
+            setStatus('Checking...', true);
+            try {
+                const response = await fetch(HEALTH_URL);
+                if (!response.ok) throw new Error('Backend unreachable');
+                const data = await response.json();
+                setStatus(data.message || 'Backend online');
+            } catch (error) {
+                setStatus('Backend offline. Start Flask server.', false);
+            }
         }
 
         async function analyzeText() {
             const text = document.getElementById('textInput').value.trim();
             if (!text) {
-                alert('Please enter some text to analyze');
+                alert('Enter text to analyze.');
                 return;
             }
-
-            const button = event.target;
-            const originalText = button.innerHTML;
-            showLoading(button);
-
+            const button = document.getElementById('textAnalyzeButton');
+            setLoading(button, true);
+            hideResult('textResult');
             try {
-                const response = await fetch('http://127.0.0.1:8000/analyze_text', {
+                const response = await fetch(`${BACKEND_BASE}/ai/toxicity`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text })
+                    body: JSON.stringify({ text }),
                 });
-
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.error) {
-                    alert('Analysis Error: ' + data.error);
-                    return;
-                }
-                
-                const resultDiv = document.getElementById('textResult');
-                const riskScore = parseFloat(data.risk_score) || 0;
-                resultDiv.className = `result ${getRiskClass(riskScore)}`;
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `
-                    <h3><i class="fas fa-comment-alt"></i> Text Analysis Result</h3>
-                    <p><strong>Toxicity:</strong> ${data.toxicity}</p>
-                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
-                    <p><strong>Risk Score:</strong> ${riskScore.toFixed(1)}/100</p>
-                    <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
-                `;
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Analysis failed');
+                const score = result.toxicity_percentage ?? 0;
+                const labels = Object.entries(result.labels || {}).map(([key, value]) =>
+                    `<span class="label-chip">${escapeHtml(key)}: ${Math.round(value * 100)}%</span>`
+                ).join('');
+                showResult('textResult', `
+                    <h3><i class="fas fa-bolt"></i> Toxicity Result</h3>
+                    <p><strong>Text:</strong> ${escapeHtml(result.text)}</p>
+                    <p><strong>Toxicity:</strong> ${score}%</p>
+                    <div class="label-grid">${labels}</div>
+                `, getSeverity(score));
             } catch (error) {
-                alert('Error analyzing text: ' + error.message);
-                console.error('Error:', error);
+                showResult('textResult', `
+                    <h3><i class="fas fa-exclamation-circle"></i> Error</h3>
+                    <p>${escapeHtml(error.message)}</p>
+                `, 'danger');
             } finally {
-                hideLoading(button, originalText);
+                setLoading(button, false);
             }
         }
 
         async function analyzeImage() {
-            const fileInput = document.getElementById('imageInput');
-            if (!fileInput.files[0]) {
-                alert('Please select an image to analyze');
+            const imageInput = document.getElementById('imageInput');
+            const file = imageInput.files[0];
+            if (!file) {
+                alert('Upload an image before analyzing.');
                 return;
             }
-
-            const button = event.target;
-            const originalText = button.innerHTML;
-            showLoading(button);
-
+            const button = document.getElementById('imageAnalyzeButton');
+            setLoading(button, true);
+            hideResult('imageResult');
             try {
                 const formData = new FormData();
-                formData.append('file', fileInput.files[0]);
-
-                const response = await fetch('http://127.0.0.1:8000/analyze_image', {
+                formData.append('image', file);
+                const response = await fetch(`${BACKEND_BASE}/ai/image`, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
                 });
-
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                const resultDiv = document.getElementById('imageResult');
-                const riskScore = parseFloat(data.risk_score) || 0;
-                resultDiv.className = `result ${getRiskClass(riskScore)}`;
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `
-                    <h3><i class="fas fa-image"></i> Image Analysis Result</h3>
-                    <p><strong>Filename:</strong> ${data.filename}</p>
-                    <p><strong>Classification:</strong> ${data.classification}</p>
-                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
-                    <p><strong>Risk Score:</strong> ${riskScore}/100</p>
-                    <div class="metric-bar"><div class="metric-fill" style="width: ${riskScore}%"></div></div>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
-                `;
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Image analysis failed');
+                const severity = result.label === 'unsafe' ? 'danger' : 'success';
+                showResult('imageResult', `
+                    <h3><i class="fas fa-camera"></i> Image Analysis</h3>
+                    <p><strong>Label:</strong> ${escapeHtml(result.label || 'unknown')}</p>
+                    <p><strong>Unsafe probability:</strong> ${result.unsafe_probability ?? 0}%</p>
+                    ${result.message ? `<p><strong>Note:</strong> ${escapeHtml(result.message)}</p>` : ''}
+                `, severity);
             } catch (error) {
-                alert('Error analyzing image: ' + error.message);
-                console.error('Error:', error);
+                showResult('imageResult', `
+                    <h3><i class="fas fa-exclamation-circle"></i> Error</h3>
+                    <p>${escapeHtml(error.message)}</p>
+                `, 'danger');
             } finally {
-                hideLoading(button, originalText);
+                setLoading(button, false);
             }
         }
 
-        async function analyzeBehavior() {
-            const text = document.getElementById('behaviorInput').value.trim();
-            if (!text) {
-                alert('Please enter message sequence to analyze');
-                return;
-            }
-
-            const messages = text.split('\n').filter(msg => msg.trim());
-            if (messages.length === 0) {
-                alert('Please enter at least one message');
-                return;
-            }
-
-            const button = event.target;
-            const originalText = button.innerHTML;
-            showLoading(button);
-
-            try {
-                const response = await fetch('http://127.0.0.1:8000/analyze_behavior', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ messages })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                const resultDiv = document.getElementById('behaviorResult');
-                const behaviorRisk = parseFloat(data.behavior_risk) || 0;
-                resultDiv.className = `result ${getRiskClass(behaviorRisk)}`;
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `
-                    <h3><i class="fas fa-brain"></i> Behavior Analysis Result</h3>
-                    <p><strong>Messages Analyzed:</strong> ${data.messages_analyzed}</p>
-                    <p><strong>Behavior Risk:</strong> ${behaviorRisk.toFixed(1)}/100</p>
-                    <div class="metric-bar"><div class="metric-fill" style="width: ${behaviorRisk}%"></div></div>
-                    <p><strong>Pattern Detected:</strong> ${data.pattern_detected ? 'Yes' : 'No'}</p>
-                    <p><strong>Recommendations:</strong> ${data.recommendations}</p>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
-                `;
-            } catch (error) {
-                alert('Error analyzing behavior: ' + error.message);
-                console.error('Error:', error);
-            } finally {
-                hideLoading(button, originalText);
-            }
-        }
-
-        async function detectAnomaly() {
-            const activityData = {
-                messages_per_hour: parseFloat(document.getElementById('messagesPerHour').value),
-                time_online_hours: parseFloat(document.getElementById('timeOnline').value),
-                unique_contacts: parseInt(document.getElementById('uniqueContacts').value),
-                late_night_activity: parseFloat(document.getElementById('lateNightActivity').value)
-            };
-
-            const button = event.target;
-            const originalText = button.innerHTML;
-            showLoading(button);
-
-            try {
-                const response = await fetch('http://127.0.0.1:8000/detect_anomaly', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(activityData)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                const resultDiv = document.getElementById('anomalyResult');
-                const anomalyScore = (parseFloat(data.anomaly_score) || 0) * 100;
-                resultDiv.className = `result ${getRiskClass(anomalyScore)}`;
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `
-                    <h3><i class="fas fa-exclamation-triangle"></i> Anomaly Detection Result</h3>
-                    <p><strong>Anomaly Score:</strong> ${anomalyScore.toFixed(1)}/100</p>
-                    <div class="metric-bar"><div class="metric-fill" style="width: ${anomalyScore}%"></div></div>
-                    <p><strong>Is Anomaly:</strong> ${data.is_anomaly ? 'Yes' : 'No'}</p>
-                    <p><strong>Confidence:</strong> ${(parseFloat(data.confidence) * 100).toFixed(1)}%</p>
-                    <p><strong>Description:</strong> ${data.description}</p>
-                    <p><strong>Alert Level:</strong> ${data.alert_level}</p>
-                `;
-            } catch (error) {
-                alert('Error detecting anomaly: ' + error.message);
-                console.error('Error:', error);
-            } finally {
-                hideLoading(button, originalText);
-            }
-        }
+        window.addEventListener('load', checkBackend);
     </script>
 </body>
 </html>
