@@ -21,6 +21,7 @@ BalKavach helps parents protect their children from harmful digital behavior usi
    .\\.venv\\Scripts\\Activate.ps1
    pip install -r requirements.txt
    ```
+
    
 3. Copy `backend/.env.example` to `backend/.env` and set your Firebase credentials path.
 4. Place your Firebase service account JSON at `firebase/serviceAccountKey.json`, or update `FIREBASE_CREDENTIALS`.
