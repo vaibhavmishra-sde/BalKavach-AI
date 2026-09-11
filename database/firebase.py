@@ -6,7 +6,7 @@ import logging
 
 
 def init_firebase():
-    # Development-friendly: if service account not present, skip initialization
+      # Development-friendly: if service account not present, skip initialization
     cred_path = os.path.abspath(FIREBASE_CREDENTIALS)
     if not os.path.exists(cred_path):
         logging.warning(f"Firebase credentials not found at {cred_path}. Skipping firebase init (dev mode).")
