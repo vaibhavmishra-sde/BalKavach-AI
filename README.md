@@ -2,7 +2,9 @@
 
 BalKavach helps parents protect their children from harmful digital behavior using AI-powered toxicity detection, image analysis, location monitoring, and alert management.
 
+
  # Project Structure
+
 
 - `backend/` – Flask backend API, Firebase integration, AI inference services
 - `frontend/flutter_app/` – Flutter application with authentication, dashboard, alerts, analytics, and settings
@@ -10,10 +12,14 @@ BalKavach helps parents protect their children from harmful digital behavior usi
 - `firebase/` – Firebase service account guidance and integration notes
 - `docs/` – Architecture, deployment, and setup documentation
 
+
 ## Setup Instructions
 
+
 ** 1. Backend Setup
+
 1. Create a Python virtual environment and activate it.
+
 2. Install dependencies:
    ```powershell
    cd backend
@@ -24,7 +30,9 @@ BalKavach helps parents protect their children from harmful digital behavior usi
 
    
 3. Copy `backend/.env.example` to `backend/.env` and set your Firebase credentials path.
+
 4. Place your Firebase service account JSON at `firebase/serviceAccountKey.json`, or update `FIREBASE_CREDENTIALS`.
+
 5. Run the backend from the workspace root:
    ```powershell
    cd ..
@@ -39,6 +47,7 @@ If you are inside the `backend/` folder and want a direct command, use:
 ```powershell
 python .\run.py
 ```
+
 Or run the provided PowerShell helper:
 ```powershell
 .\run_backend.ps1
@@ -47,19 +56,23 @@ Or run the provided PowerShell helper:
 ** 2. Flutter Frontend Setup
 
 1. Install Flutter SDK and ensure `flutter doctor` passes.
+
 2. From the Flutter project folder:
    ```powershell
    cd frontend\\flutter_app
    flutter pub get
    ```
+
 3. If the project has not been initialized with platform folders yet, run:
    ```powershell
    flutter create .
    ```
+
 4. Run the app on an emulator or device:
    ```powershell
    flutter run
    ```
+
 
 ** 3. AI Model Setup
 
