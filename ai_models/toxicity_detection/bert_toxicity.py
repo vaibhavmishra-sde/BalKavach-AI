@@ -9,11 +9,13 @@ class ToxicityDetector:
             return_all_scores=True,
         )
 
+    
     def predict(self, text: str):
         results = self.classifier(text)
         if not results or not results[0]:
             return {'toxicity': 0.0, 'labels': {}}
 
+        
         scores = {item['label']: float(item['score']) for item in results[0]}
         toxic_score = scores.get('toxic', scores.get('TOXIC', 0.0))
         return {
