@@ -1,11 +1,17 @@
 # Architecture Overview
 
+
 ## System Layers
 
+
 - **Frontend**: Flutter mobile app using `provider` for state management, Firebase SDKs for authentication and messaging, and a REST API service layer for backend communication.
+
 - **Backend**: Flask API with modular controllers, service layers, and Firestore persistence.
+
 - **AI Models**: Transformer-based toxicity detection and TensorFlow CNN image safety detection.
+
 - **Firebase**: Auth, Firestore, and Cloud Messaging for user management, event storage, and notifications.
+
 
 ## Main Components
 
@@ -16,6 +22,7 @@
 - `ai_models/` - model loaders and training utilities
 
 ## Data Flow
+
 
 1. User logs in or signs up in Flutter.
 2. Flutter sends credentials to Flask `/api/auth` endpoints.
