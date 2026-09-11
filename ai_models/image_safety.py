@@ -7,6 +7,7 @@ _model = None
 def load_image_model(path: str = "models/image_cnn.h5"):
     global _model
     if _model is None:
+      
         # Placeholder: load a pre-trained Keras CNN for harmful image detection
         _model = load_model(path)
     return _model
