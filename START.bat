@@ -12,6 +12,7 @@ if not exist "%BACKEND_PY%" (
     exit /b 1
 )
 
+
 echo Starting BalKavach backend at http://127.0.0.1:5000 ...
 start "BalKavach Backend" /D "%ROOT%" cmd /k ""%BACKEND_PY%" -m backend"
 
