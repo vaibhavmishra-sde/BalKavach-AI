@@ -4,8 +4,6 @@ from tensorflow.keras import layers, models
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'cnn_image_detector.h5')
 
-
-
 def build_model():
     model = models.Sequential([
         layers.Input(shape=(128, 128, 3)),
