@@ -6,7 +6,6 @@ import 'screens/dashboard_screen.dart';
 
 class BalKavachApp extends StatelessWidget {
   const BalKavachApp({super.key});
-
   
   @override
   Widget build(BuildContext context) {
