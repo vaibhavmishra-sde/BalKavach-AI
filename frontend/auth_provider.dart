@@ -18,6 +18,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  
   Future<void> signup(String email, String password, String displayName, String role) async {
     final result = await _api.signup(email, password, displayName, role);
     user = UserModel.fromJson(result['user']);
@@ -26,6 +27,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  
   void logout() {
     user = null;
     token = null;
