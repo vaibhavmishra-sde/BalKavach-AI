@@ -2,7 +2,6 @@
 
 This folder stores training utilities and guidance for BalKavach AI models.
 
-
 ## Toxicity Detection
 - Uses the BERT transformer model `unitary/toxic-bert`.
 - The model is loaded from Hugging Face in `ai_models/toxicity_detection/bert_toxicity.py`.
