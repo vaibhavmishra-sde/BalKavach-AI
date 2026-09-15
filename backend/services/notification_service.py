@@ -1,6 +1,7 @@
 from backend.utils.firebase_client import get_fcm_client
 
 
+
 def send_fcm_notification(token: str, title: str, body: str, data: dict = None):
     messaging = get_fcm_client()
     message = messaging.Message(
