@@ -5,6 +5,8 @@ import shutil
 import tempfile
 from backend.utils.firebase_client import initialize_firebase
 
+
+
 _db_conn = None
 _legacy_db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'local_db.sqlite3'))
 _app_data_dir = os.path.join(os.getenv('LOCALAPPDATA', os.path.expanduser('~')), 'BalKavach')
