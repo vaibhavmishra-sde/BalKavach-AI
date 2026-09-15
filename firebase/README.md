@@ -9,13 +9,17 @@
 4. Enable Firebase Cloud Messaging.
 
 5. Generate a service account JSON file:
+   
    - Go to Project Settings > Service Accounts
+     
    - Create a new private key
+     
    - Download the JSON and save to `firebase/serviceAccountKey.json`
 
-6. Update `backend/.env` with the credentials path:
+7. Update `backend/.env` with the credentials path:
    ```text
+   
    FIREBASE_CREDENTIALS=../firebase/serviceAccountKey.json
    ```
 
-7. Add Firebase rules for secure Firestore access in production.
+8. Add Firebase rules for secure Firestore access in production.
