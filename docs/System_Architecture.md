@@ -1,15 +1,11 @@
 # System Architecture
-
 ## Components
-
 ### Child Application
-
 * Activity Monitoring
 * Screen Time Tracking
 * Content Monitoring
-
+  
 ### AI Analysis Engine
-
 * Cyberbullying Detection
 * Sentiment Analysis
 * Threat Classification
