@@ -16,9 +16,13 @@
 ## Main Components
 
 - `backend/main.py` - Flask application entrypoint
+- 
 - `backend/controllers/` - API route handlers
+- 
 - `backend/services/` - business logic, Firebase, AI inference, notification dispatch
+- 
 - `frontend/flutter_app/lib/` - UI screens, provider state management, API service layer
+- 
 - `ai_models/` - model loaders and training utilities
 
 ## Data Flow
