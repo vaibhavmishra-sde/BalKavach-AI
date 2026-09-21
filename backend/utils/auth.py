@@ -12,8 +12,7 @@ def require_auth(*roles):
         def wrapped(*args, **kwargs):
             header = request.headers.get('Authorization', '')
             if not header.startswith('Bearer '):
-                g.current_user = {'uid': 'guest_user', 'role': 'parent'}
-                return view(*args, **kwargs)
+                return jsonify({'error': 'Authentication required'}), 401
             try:
                 g.current_user = decode_token(header.removeprefix('Bearer ').strip())
             except ValueError as exc:
