@@ -11,9 +11,9 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
     data = request.json or {}
-    email = data.get('email')
+    email = data.get('email', '').strip().lower()
     password = data.get('password')
-    display_name = data.get('display_name')
+    display_name = data.get('display_name', '').strip()
     role = data.get('role', 'parent')
 
     if not (email and password and display_name):
@@ -37,7 +37,7 @@ def signup():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.json or {}
-    email = data.get('email')
+    email = data.get('email', '').strip().lower()
     password = data.get('password')
 
     if not (email and password):
