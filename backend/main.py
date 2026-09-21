@@ -31,6 +31,10 @@ def create_app():
     def upload_too_large(_error):
         return jsonify({'error': 'Upload exceeds the allowed size'}), 413
 
+    @app.errorhandler(404)
+    def route_not_found(_error):
+        return jsonify({'error': 'Route not found'}), 404
+
     return app
 
 
