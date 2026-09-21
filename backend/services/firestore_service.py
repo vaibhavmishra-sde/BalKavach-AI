@@ -204,6 +204,7 @@ def save_activity_log(log_data: dict):
 
 
 def get_alerts(limit: int = 50):
+    limit = max(1, min(int(limit), 100))
     db = get_db()
     if db is not None:
         docs = db.collection('alerts').order_by('timestamp', direction='DESCENDING').limit(limit).stream()
