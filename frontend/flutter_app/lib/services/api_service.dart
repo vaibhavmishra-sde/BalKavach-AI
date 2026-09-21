@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -27,35 +28,35 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'),
-      headers: _jsonHeaders,
-      body: jsonEncode({'email': email, 'password': password}),
-    ).timeout(_requestTimeout);
-    return _handleResponse(response);
+    return _sendJson('/auth/login', {'email': email, 'password': password});
   }
 
   Future<Map<String, dynamic>> signup(String email, String password, String displayName, String role) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/signup'),
-      headers: _jsonHeaders,
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-        'display_name': displayName,
-        'role': role,
-      }),
-    ).timeout(_requestTimeout);
-    return _handleResponse(response);
+    return _sendJson('/auth/signup', {
+      'email': email,
+      'password': password,
+      'display_name': displayName,
+      'role': role,
+    });
   }
 
   Future<Map<String, dynamic>> analyzeToxicity(String text) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/ai/toxicity'),
-      headers: _jsonHeaders,
-      body: jsonEncode({'text': text}),
-    ).timeout(_requestTimeout);
-    return _handleResponse(response);
+    return _sendJson('/ai/toxicity', {'text': text});
+  }
+
+  Future<Map<String, dynamic>> _sendJson(String path, Map<String, dynamic> payload) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl$path'),
+        headers: _jsonHeaders,
+        body: jsonEncode(payload),
+      ).timeout(_requestTimeout);
+      return _handleResponse(response);
+    } on TimeoutException {
+      throw Exception('The request timed out. Check your connection and try again.');
+    } on http.ClientException {
+      throw Exception('Unable to reach the BalKavach server.');
+    }
   }
 
   Future<Map<String, dynamic>> analyzeImage(XFile imageFile) async {
@@ -83,6 +84,7 @@ class ApiService {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return body;
     }
-    throw Exception(body['error'] ?? 'Unexpected API error');
+    final message = body['error'];
+    throw Exception(message is String && message.isNotEmpty ? message : 'Unexpected API error');
   }
 }
