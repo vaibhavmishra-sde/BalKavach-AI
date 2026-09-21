@@ -50,6 +50,8 @@ def image():
     image_file = request.files['image']
     if not image_file.filename:
         return jsonify({'error': 'image file is required'}), 400
+    if image_file.mimetype not in {'image/jpeg', 'image/png', 'image/webp'}:
+        return jsonify({'error': 'Only JPEG, PNG, and WebP images are supported'}), 415
     try:
         result = analyze_image(image_file)
         save_activity_log({
@@ -71,6 +73,10 @@ def behavior():
     messages = payload.get('messages', [])
     if not isinstance(messages, list):
         return jsonify({'error': 'messages must be a list'}), 400
+    if not messages or len(messages) > 100:
+        return jsonify({'error': 'messages must contain between 1 and 100 items'}), 400
+    if any(not isinstance(message, str) or not message.strip() for message in messages):
+        return jsonify({'error': 'each message must be a non-empty string'}), 400
         
     try:
         result = analyze_behavior(messages)
@@ -90,6 +96,8 @@ def behavior():
 @require_auth()
 def anomaly():
     payload = request.json or {}
+    if not isinstance(payload, dict):
+        return jsonify({'error': 'anomaly payload must be a JSON object'}), 400
     try:
         result = detect_anomaly(payload)
         if result.get('is_anomaly'):
