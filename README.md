@@ -90,6 +90,10 @@ Or run the provided PowerShell helper:
 
 See `docs/deployment.md` for deployment recommendations for Flask and Flutter.
 
+## Frontend checks
+
+Run `flutter analyze` and `flutter test` from `frontend/flutter_app` before opening a pull request.
+
 ** 6.Contributing
 
 We welcome contributions from the open-source community! If you'd like to help improve BalKavach AI, please see our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) for details on how to get started.
