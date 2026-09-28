@@ -60,18 +60,17 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> analyzeImage(XFile imageFile) async {
-    final request = http.MultipartRequest('POST', Uri.parse('$baseUrl/ai/image'));
-    request.files.add(
-      http.MultipartFile.fromBytes(
-        'image',
-        await imageFile.readAsBytes(),
-        filename: imageFile.name,
-      ),
-    );
-    if (_token != null) request.headers['Authorization'] = 'Bearer $_token';
-    final streamedResponse = await request.send().timeout(_requestTimeout);
-    final response = await http.Response.fromStream(streamedResponse);
-    return _handleResponse(response);
+    try {
+      final request = http.MultipartRequest('POST', Uri.parse('$baseUrl/ai/image'));
+      request.files.add(http.MultipartFile.fromBytes('image', await imageFile.readAsBytes(), filename: imageFile.name));
+      if (_token != null) request.headers['Authorization'] = 'Bearer $_token';
+      final streamedResponse = await request.send().timeout(_requestTimeout);
+      return _handleResponse(await http.Response.fromStream(streamedResponse));
+    } on TimeoutException {
+      throw Exception('The image analysis timed out. Check your connection and try again.');
+    } on http.ClientException {
+      throw Exception('Unable to reach the BalKavach server.');
+    }
   }
 
   Map<String, dynamic> _handleResponse(http.Response response) {
