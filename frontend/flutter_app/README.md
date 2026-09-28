@@ -1,17 +1,20 @@
-# balkavach
+# BalKavach Flutter app
 
-A new Flutter project.
+BalKavach is an AI-assisted child safety dashboard for guardians. The Flutter client provides authenticated access to safety alerts, analysis tools, activity summaries, and account settings.
 
-## Getting Started
+## Run locally
 
-This project is a starting point for a Flutter application.
+From this directory:
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter pub get
+flutter run
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The app uses the API configured in `lib/services/api_service.dart`. Keep credentials and environment-specific endpoints outside committed source files.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## UI conventions
+
+- Material 3 components with responsive layouts for desktop and mobile.
+- The dark theme is the primary dashboard experience; light mode is available from Settings.
+- Auth forms use autofill hints, inline validation, and loading/error feedback.
