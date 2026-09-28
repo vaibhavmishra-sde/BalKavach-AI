@@ -19,7 +19,7 @@ class ApiService {
   static String get baseUrl {
     const configuredUrl = String.fromEnvironment('API_BASE_URL');
     if (configuredUrl.isNotEmpty) {
-      return configuredUrl.replaceFirst(RegExp(r'/$'), '');
+      return configuredUrl.trim().replaceFirst(RegExp(r'/$'), '');
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return 'http://10.0.2.2:5000/api';
