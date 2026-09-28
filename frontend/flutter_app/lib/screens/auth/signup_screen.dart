@@ -15,7 +15,16 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _displayNameController = TextEditingController();
   bool _loading = false;
+  bool _obscurePassword = true;
   String? _error;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _displayNameController.dispose();
+    super.dispose();
+  }
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
@@ -55,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               TextFormField(
                 controller: _displayNameController,
-                decoration: const InputDecoration(labelText: 'Display Name'),
+                decoration: const InputDecoration(labelText: 'Display name', prefixIcon: Icon(Icons.person_outline)),
                 validator: (value) => value == null || value.trim().isEmpty ? 'Enter your name' : null,
               ),
               const SizedBox(height: 12),
@@ -63,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email address', prefixIcon: Icon(Icons.mail_outline)),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) return 'Enter your email address';
                   if (!value.contains('@')) return 'Enter a valid email address';
@@ -74,8 +83,8 @@ class _SignupScreenState extends State<SignupScreen> {
               TextFormField(
                 controller: _passwordController,
                 autofillHints: const [AutofillHints.newPassword],
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
+                decoration: InputDecoration(labelText: 'Password', prefixIcon: const Icon(Icons.lock_outline), suffixIcon: IconButton(onPressed: () => setState(() => _obscurePassword = !_obscurePassword), icon: Icon(_obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined))),
+                obscureText: _obscurePassword,
                 validator: (value) {
                   if (value == null || value.length < 8) return 'Use at least 8 characters';
                   return null;
