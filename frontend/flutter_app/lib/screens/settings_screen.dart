@@ -14,9 +14,9 @@ class SettingsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Settings', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+          Text('Settings', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
-          const Text('Customize your platform preferences, notification rules, and security options.', style: TextStyle(color: Colors.white70)),
+          Text('Customize your platform preferences, notification rules, and security options.', style: Theme.of(context).textTheme.bodyLarge),
           const SizedBox(height: 24),
           GlassCard(
             child: Column(
