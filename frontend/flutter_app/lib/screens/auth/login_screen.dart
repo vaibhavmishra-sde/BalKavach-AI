@@ -15,7 +15,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _loading = false;
+  bool _obscurePassword = true;
   String? _error;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
@@ -39,41 +47,52 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
+      body: Container(
+        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: isDark ? const [Color(0xFF0B1026), Color(0xFF171A3B)] : const [Color(0xFFF5F7FF), Color(0xFFE9EDFF)])),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 460), child: Form(
             key: _formKey,
             child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('BalKavach', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12),
-              const Text('AI child security platform', style: TextStyle(fontSize: 16)),
-              const SizedBox(height: 32),
+              Row(children: [Container(width: 46, height: 46, decoration: BoxDecoration(color: theme.colorScheme.primary, borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.shield_rounded, color: Colors.white, size: 27)), const SizedBox(width: 12), Text('BalKavach', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800))]),
+              const SizedBox(height: 38),
+              Text('Welcome back', style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
+              const SizedBox(height: 8),
+              Text('Sign in to keep your family’s digital world safer.', style: theme.textTheme.bodyLarge),
+              const SizedBox(height: 30),
+              Text('Email address', style: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(hintText: 'you@example.com', prefixIcon: Icon(Icons.mail_outline_rounded)),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) return 'Enter your email address';
                   if (!value.contains('@')) return 'Enter a valid email address';
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 18),
+              Text('Password', style: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _passwordController,
                 autofillHints: const [AutofillHints.password],
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
+                decoration: InputDecoration(hintText: 'Enter your password', prefixIcon: const Icon(Icons.lock_outline_rounded), suffixIcon: IconButton(tooltip: _obscurePassword ? 'Show password' : 'Hide password', onPressed: () => setState(() => _obscurePassword = !_obscurePassword), icon: Icon(_obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined))),
+                obscureText: _obscurePassword,
                 validator: (value) => value == null || value.isEmpty ? 'Enter your password' : null,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               if (_error != null)
-                Text(_error!, style: const TextStyle(color: Colors.red)),
+                Container(width: double.infinity, padding: const EdgeInsets.all(12), margin: const EdgeInsets.only(bottom: 16), decoration: BoxDecoration(color: Colors.red.withOpacity(.10), borderRadius: BorderRadius.circular(12)), child: Row(children: [const Icon(Icons.error_outline, color: Colors.redAccent, size: 20), const SizedBox(width: 8), Expanded(child: Text(_error!, style: const TextStyle(color: Colors.redAccent)))])),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -81,11 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6C63FF),
                   foregroundColor: Colors.white,
-                  minimumSize: const Size.fromHeight(48),
+                  minimumSize: const Size.fromHeight(54),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 ),
                 child: _loading
                     ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                    : const Text('Login'),
+                    : const Text('Sign in', style: TextStyle(fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(height: 16),
@@ -96,10 +116,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     MaterialPageRoute(builder: (_) => const SignupScreen()),
                   );
                 },
-                child: const Text('Create an account'),
+                child: const Text('New to BalKavach?  Create an account'),
               ),
             ],
             ),
+              )),
+            ),
+          ),
           ),
         ),
       ),

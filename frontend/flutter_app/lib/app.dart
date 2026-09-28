@@ -12,12 +12,6 @@ class BalKavachApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    final baseText = const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white70),
-      titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-    );
-
     return MaterialApp(
       title: 'BalKavach',
       themeMode: themeProvider.themeMode,
@@ -30,9 +24,12 @@ class BalKavachApp extends StatelessWidget {
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
-          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide.none),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide(color: Color(0xFFE4E7F0))),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide(color: Color(0xFF3B4CCA), width: 2)),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
         ),
-        textTheme: baseText.apply(bodyColor: Colors.black87, displayColor: Colors.black87),
+        textTheme: const TextTheme(bodyLarge: TextStyle(color: Color(0xFF182033)), bodyMedium: TextStyle(color: Color(0xFF5E687D)), titleLarge: TextStyle(color: Color(0xFF182033), fontWeight: FontWeight.bold)),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.cyanAccent),
       ),
       darkTheme: ThemeData(
@@ -44,9 +41,12 @@ class BalKavachApp extends StatelessWidget {
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: Color(0xFF1B2040),
-          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide.none),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide(color: Colors.white12)),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(14)), borderSide: BorderSide(color: Color(0xFF8B7BFF), width: 2)),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
         ),
-        textTheme: baseText,
+        textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.white), bodyMedium: TextStyle(color: Colors.white70), titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         colorScheme: ColorScheme.fromSwatch(brightness: Brightness.dark, primarySwatch: Colors.indigo).copyWith(secondary: Colors.cyanAccent),
       ),
       debugShowCheckedModeBanner: false,
