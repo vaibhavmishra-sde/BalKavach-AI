@@ -141,7 +141,9 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Tooltip(
+      message: label,
+      child: SizedBox(
       height: 48,
       child: TextButton.icon(
         onPressed: onTap,
@@ -152,6 +154,7 @@ class _ActionButton extends StatelessWidget {
         ),
         icon: Icon(icon, size: 18),
         label: Text(label, style: const TextStyle(fontSize: 14)),
+      ),
       ),
     );
   }
