@@ -14,6 +14,8 @@ class BottomNav extends StatelessWidget {
         boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 20, offset: const Offset(0, -4))],
       ),
       child: BottomNavigationBar(
+        enableFeedback: true,
+        showUnselectedLabels: true,
         currentIndex: currentIndex,
         onTap: onTap,
         backgroundColor: Colors.transparent,
