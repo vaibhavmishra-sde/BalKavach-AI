@@ -56,7 +56,9 @@ class SideNav extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = items[index];
                 final selected = selectedIndex == index;
-                return InkWell(
+                return Tooltip(
+                  message: collapsed ? item.label : '',
+                  child: InkWell(
                   onTap: () => onItemSelected(index),
                   borderRadius: BorderRadius.circular(18),
                   child: Container(
@@ -77,6 +79,7 @@ class SideNav extends StatelessWidget {
                         ]
                       ],
                     ),
+                  ),
                   ),
                 );
               },
