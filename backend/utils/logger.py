@@ -1,5 +1,4 @@
 import logging
-import os
 
 
 def configure_logger():
@@ -10,6 +9,6 @@ def configure_logger():
             '%(asctime)s - %(levelname)s - %(name)s - %(message)s'
         )
         handler.setFormatter(formatter)
-        logger.setLevel(getattr(logging, os.getenv('LOG_LEVEL', 'INFO').upper(), logging.INFO))
+        logger.setLevel(logging.INFO)
         logger.addHandler(handler)
     return logger

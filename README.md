@@ -94,12 +94,6 @@ See `docs/deployment.md` for deployment recommendations for Flask and Flutter.
 
 Run `flutter analyze` and `flutter test` from `frontend/flutter_app` before opening a pull request.
 
-## Backend checks
-
-From the repository root, run `python -m pytest backend/tests -q`. Set `JWT_SECRET` and
-`BAL_KAVACH_SECRET` to strong values outside development; never commit `.env` files or
-Firebase service-account keys. The API returns an `X-Request-ID` header for easier debugging.
-
 ** 6.Contributing
 
 We welcome contributions from the open-source community! If you'd like to help improve BalKavach AI, please see our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) for details on how to get started.
