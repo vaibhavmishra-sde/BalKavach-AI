@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                   title: const Text('Alert Preferences'),
                   subtitle: const Text('Manage email, push and SMS notifications'),
                   trailing: const Icon(Icons.chevron_right, color: Colors.white60),
-                  onTap: () {},
+                  onTap: () => _showInfo(context, 'Alert preferences', 'Choose which guardians receive email, push, and SMS alerts.'),
                 ),
                 const Divider(color: Colors.white12),
                 ListTile(
@@ -42,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
                   title: const Text('Privacy Controls'),
                   subtitle: const Text('Adjust child monitoring settings and permissions'),
                   trailing: const Icon(Icons.chevron_right, color: Colors.white60),
-                  onTap: () {},
+                  onTap: () => _showInfo(context, 'Privacy controls', 'Review consent and child-device permissions before connecting a device.'),
                 ),
                 const Divider(color: Colors.white12),
                 ListTile(
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                   title: const Text('Account Settings'),
                   subtitle: const Text('Update profile, password and access roles'),
                   trailing: const Icon(Icons.chevron_right, color: Colors.white60),
-                  onTap: () {},
+                  onTap: () => _showInfo(context, 'Account settings', 'Your profile and access role are managed securely through the connected account.'),
                 ),
                 const Divider(color: Colors.white12),
                 ListTile(
@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                   title: const Text('Support Center'),
                   subtitle: const Text('Get help with the BalKavach platform'),
                   trailing: const Icon(Icons.chevron_right, color: Colors.white60),
-                  onTap: () {},
+                  onTap: () => _showInfo(context, 'Support center', 'Contact your workspace administrator for account or device support.'),
                 ),
               ],
             ),
@@ -86,4 +86,8 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showInfo(BuildContext context, String title, String message) {
+  showDialog<void>(context: context, builder: (_) => AlertDialog(title: Text(title), content: Text(message), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Done'))]));
 }
