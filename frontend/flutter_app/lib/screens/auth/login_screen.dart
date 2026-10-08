@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(hintText: 'you@example.com', prefixIcon: Icon(Icons.mail_outline_rounded)),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) return 'Enter your email address';
-                  if (!value.contains('@')) return 'Enter a valid email address';
+                  if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value.trim())) return 'Enter a valid email address';
                   return null;
                 },
               ),
