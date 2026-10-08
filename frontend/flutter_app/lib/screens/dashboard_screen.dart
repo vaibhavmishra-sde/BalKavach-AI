@@ -128,14 +128,15 @@ class _HomeDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final cardWidth = width >= 900 ? 270.0 : width >= 600 ? 230.0 : width - 32;
+    final userName = context.watch<AuthProvider>().user?.displayName ?? 'Guardian';
 
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Safety overview', style: Theme.of(context).textTheme.headlineMedium),
+          Text('Good morning, $userName', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
-          const Text('Monitor child safety, investigate alerts, and run AI checks from one place.'),
+          const Text('Here is your family safety snapshot for today.'),
           const SizedBox(height: 20),
           GlassCard(
             child: LayoutBuilder(
