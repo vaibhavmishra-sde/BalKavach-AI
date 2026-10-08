@@ -11,7 +11,7 @@ dependencies:
   provider: ^6.0.5
   http: ^1.6.0
   # Keep this compatible with Flutter's pinned vector_math used by flutter_test.
-  fl_chart: ^1.1.0
+  fl_chart: 1.1.0
   image_picker: ^1.1.0
   url_launcher: ^6.1.10
   cupertino_icons: ^1.0.5
