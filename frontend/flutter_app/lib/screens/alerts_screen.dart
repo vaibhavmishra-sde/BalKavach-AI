@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import '../widgets/glass_card.dart';
 
-class AlertsScreen extends StatelessWidget {
+class AlertsScreen extends StatefulWidget {
   const AlertsScreen({super.key});
 
   @override
+  State<AlertsScreen> createState() => _AlertsScreenState();
+}
+
+class _AlertsScreenState extends State<AlertsScreen> {
+  String _filter = 'All';
+  final _filters = const ['All', 'High', 'Medium', 'Low'];
+
+  @override
   Widget build(BuildContext context) {
+    final alerts = const [
+      _AlertData('SOS Alert', 'Emergency button pressed by child', '2m ago', 'High'),
+      _AlertData('Toxic Chat', 'Potential cyberbullying detected', '30m ago', 'Medium'),
+      _AlertData('Location Update', 'Child location shared successfully', '1h ago', 'Low'),
+      _AlertData('Suspicious App', 'New app installed during restricted hours', '3h ago', 'High'),
+    ].where((alert) => _filter == 'All' || alert.badge == _filter).toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.all(18.0),
       child: Column(
@@ -15,6 +29,8 @@ class AlertsScreen extends StatelessWidget {
           const SizedBox(height: 8),
           const Text('Review all threats, action status, and alert history from a centralized control panel.', style: TextStyle(color: Colors.white70)),
           const SizedBox(height: 22),
+          Wrap(spacing: 8, children: _filters.map((filter) => ChoiceChip(label: Text(filter), selected: _filter == filter, onSelected: (_) => setState(() => _filter = filter))).toList()),
+          const SizedBox(height: 18),
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,14 +46,7 @@ class AlertsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Column(
-            children: const [
-              _AlertCard(title: 'SOS Alert', subtitle: 'Emergency button pressed by child', time: '2m ago', badge: 'High'),
-              _AlertCard(title: 'Toxic Chat', subtitle: 'Potential cyberbullying detected', time: '30m ago', badge: 'Medium'),
-              _AlertCard(title: 'Location Update', subtitle: 'Child location shared successfully', time: '1h ago', badge: 'Low'),
-              _AlertCard(title: 'Suspicious App', subtitle: 'New app installed during restricted hours', time: '3h ago', badge: 'High'),
-            ],
-          ),
+          Column(children: alerts.map((alert) => _AlertCard(data: alert)).toList()),
         ],
       ),
     );
@@ -60,17 +69,19 @@ class AlertsScreen extends StatelessWidget {
   }
 }
 
-class _AlertCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String time;
-  final String badge;
+class _AlertData {
+  final String title, subtitle, time, badge;
+  const _AlertData(this.title, this.subtitle, this.time, this.badge);
+}
 
-  const _AlertCard({required this.title, required this.subtitle, required this.time, required this.badge, super.key});
+class _AlertCard extends StatelessWidget {
+  final _AlertData data;
+
+  const _AlertCard({required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final badgeColor = badge == 'High' ? Colors.redAccent : badge == 'Medium' ? Colors.orangeAccent : Colors.greenAccent;
+    final badgeColor = data.badge == 'High' ? Colors.redAccent : data.badge == 'Medium' ? Colors.orangeAccent : Colors.greenAccent;
     return GlassCard(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Row(
@@ -80,9 +91,9 @@ class _AlertCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(data.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 6),
-                Text(subtitle, style: const TextStyle(color: Colors.white70, height: 1.4)),
+                Text(data.subtitle, style: const TextStyle(color: Colors.white70, height: 1.4)),
               ],
             ),
           ),
@@ -92,10 +103,10 @@ class _AlertCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(color: badgeColor.withOpacity(0.18), borderRadius: BorderRadius.circular(12)),
-                child: Text(badge, style: TextStyle(color: badgeColor, fontWeight: FontWeight.bold)),
+                child: Text(data.badge, style: TextStyle(color: badgeColor, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: 10),
-              Text(time, style: const TextStyle(color: Colors.white54)),
+              Text(data.time, style: const TextStyle(color: Colors.white54)),
             ],
           ),
         ],
