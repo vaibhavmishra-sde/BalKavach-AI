@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras import layers, models
 
+
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'cnn_image_detector.h5')
 
 def build_model():
