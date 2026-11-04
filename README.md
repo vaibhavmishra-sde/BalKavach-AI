@@ -2,7 +2,6 @@
 
 BalKavach helps parents protect their children from harmful digital behavior using AI-powered toxicity detection, image analysis, location monitoring, and alert management.
 
-
  # Project Structure
 
 
