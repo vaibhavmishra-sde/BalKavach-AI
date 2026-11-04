@@ -8,6 +8,7 @@ from backend.controllers.ai_controller import ai_bp
 from backend.controllers.admin_controller import admin_bp
 
 
+
 def create_app():
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
     app = Flask(__name__, static_folder=None)
