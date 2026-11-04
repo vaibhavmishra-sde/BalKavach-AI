@@ -16,6 +16,7 @@ First off, thank you for considering contributing to BalKavach AI! It's people l
    source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
    pip install -r requirements.txt
    ```
+   
 4. **Create a branch** for your feature or bugfix:
    ```bash
    git checkout -b feature/your-feature-name
